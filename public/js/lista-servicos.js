@@ -11,11 +11,12 @@ socket.on('serviceList', data => {
     data.forEach((element, ii) => {
         var tr = document.createElement("tr")
         element.forEach((el, i) => {
-            let td = document.createElement("td")
-            if(!ii)td = document.createElement("th")
-            td.appendChild(document.createTextNode(el))
-            tr.appendChild(td)
-        
+            if(i){
+                let td = document.createElement("td")
+                if(!ii)td = document.createElement("th")
+                td.appendChild(document.createTextNode(el))
+                tr.appendChild(td)
+            }
         })
         if(ii){
             //criar atributo id

@@ -22,6 +22,8 @@ socket.on('feedback', async data => {
   
 
 function updateServiceList(id, n, checked){
+    console.log('update services =-------------')
+    console.log(JSON.stringify(slist))
     console.log('id ' + id)
     console.log('checked '+ checked)
     let t = n.slice(0,5)
@@ -29,15 +31,14 @@ function updateServiceList(id, n, checked){
     //console.log('t ' + t)
     //console.log('val ' + val)
     
-    if(checked){
-        
+    if(checked && !slist.includes(parseInt(id))){
         slist.push(parseInt(id))
         tempo += time2min(t)
         total  += val       
     }else{
         console.log('slist ' + JSON.stringify(slist))
         
-        if(slist.includes(parseInt(id)))slist.splice(slist.indexOf(id), 1)
+        if(slist.includes(parseInt(id)))slist.splice(slist.indexOf(parseInt(id)), 1)
         
         else console.log( ' noooooooooooooooooo')
         console.log('slist ' + slist)

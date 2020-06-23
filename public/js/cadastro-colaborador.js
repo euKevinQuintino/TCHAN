@@ -7,7 +7,8 @@ socket.on('feedback', data => {
     console.log('feedbakc ' + text)
     if(ok){
         //voltar();
-        document.getElementById('voltar').click()
+        //document.getElementById('voltar').click()
+        paraListaColaboradores();
     }
 })
 
@@ -38,8 +39,10 @@ function cadastrarColaborador(){
     else if(p1 != p2)erros.push('As senhas não são iguais')
     
     if (!erros.length) {
+        data.push(p1)
         if(document.getElementById('isOwner').checked == true)data.push(1)
         else data.push(0)
+        
         let resultado = window.prompt("Digite a senha de administrador");
         data.push(resultado)
         socket.emit('newColab', data)

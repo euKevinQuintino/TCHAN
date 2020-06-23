@@ -5,12 +5,14 @@ const bookForm = ['id_agendamento', 'id_cliente', 'id_array', 'data_agendamento'
 
 function paraBuscaColaborador() {
     let b = document.getElementById('busca')
-    location.replace("http://127.0.0.1:5500/public/html/busca-colaborador.html?busca=" + b.value)
+    let normalize = b.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    location.replace("http://127.0.0.1:5500/public/html/busca-colaborador.html?busca=" + normalize)
 }
 
 function paraBuscaServico() {
     let b = document.getElementById('busca')
-    location.replace("http://127.0.0.1:5500/public/html/busca-servico.html?busca=" + b.value)
+    let normalize = b.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    location.replace("http://127.0.0.1:5500/public/html/busca-servico.html?busca=" + normalize)
 }
 
 function paraIndex() {
@@ -142,8 +144,10 @@ function salvarDados(doque) {
     theform.forEach((el, i) => {
         //console.log('el ' + el)
         if (i) {
+            console.log('valor ' + document.getElementById(el).value)
             if (fun[i](document.getElementById(el).value) != "Sucesso") {
                 erros.push(fun[i](document.getElementById(el).value))
+                
             }
             let texto = document.getElementById(el).value
             if (doque == 'clientes' && i == 2) {
@@ -262,6 +266,7 @@ function formataValor(cash) {
 
 function validaDescricao(nome) {
     const regra = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+(([' -][A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ])?[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]*)*$/;
+    
     if (typeof nome === "undefined") {
         nome = document.getElementById('nome').value;
     }
@@ -392,6 +397,9 @@ function validaNumeroDaCasa(num) {
 
 function validaDuracao(dur) {
     const regra = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+    console.log('dur '+ dur)
+    if(dur.length > 6)dur=dur.slice(0, 5);
+    console.log('dur '+ dur)
     if (typeof dur === "undefined") {
         dur = document.getElementById("duracao").value;
     }

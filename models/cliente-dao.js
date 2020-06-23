@@ -64,10 +64,19 @@ class ClienteDao {
             case 'tabela_array': thetabl = arrayForm; id_ = 'id_array'; break;
         }
 
-
+        console.log('data ' + data)
         thetabl.forEach((key, i) => {
             let atualizar = 'UPDATE ' + tabl + ' SET '
-            if(!!data[i] && i){
+            if(id_ = 'id_array'){
+                if(i){
+                    atualizar = atualizar.concat(key, " = ? WHERE " + id_ + " = ?")
+                    console.log(atualizar + ' ' + data[i] + data[0])
+                    if(data[0] == null)data[0] = NULL
+                    this._conexao.query(atualizar, [data[i], data[0]], util.queryCallback());
+                    
+                }
+            }
+            else if(!!data[i] && i){
                 atualizar = atualizar.concat(key, " = ? WHERE " + id_ + " = ?")
                 console.log(atualizar + ' ' + data[i])
                 this._conexao.query(atualizar, [data[i], data[0]], util.queryCallback());

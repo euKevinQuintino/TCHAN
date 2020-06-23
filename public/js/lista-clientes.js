@@ -56,5 +56,7 @@ function paraCadastroCliente(){
 
 function paraBuscaCliente(){
     let b = document.getElementById('busca')
-    location.replace("http://127.0.0.1:5500/public/html/busca-cliente.html?busca=" + b.value)
+    let normalize = b.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    console.log('parabusca ' + normalize)
+    location.replace("http://127.0.0.1:5500/public/html/busca-cliente.html?busca=" + normalize)
 }

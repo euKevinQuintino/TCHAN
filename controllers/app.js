@@ -245,7 +245,6 @@ io.on('connection', socket => {
     })
 
     socket.on('getSearchData', async search => {
-        console.log(search)
         const clients = await getAll('clientes');
         let clean_search = search.split("/").join("")
         clean_search = clean_search.split(" ").join("")
@@ -257,12 +256,11 @@ io.on('connection', socket => {
         clients.forEach(cli => {
             //busca se a substring está na string. Ignora capitalizacao
         
-
             let clean_cpf = cli[2].split("/").join("")
             clean_cpf = clean_cpf.split(" ").join("")
             clean_cpf = clean_cpf.split(".").join("")
             clean_cpf = clean_cpf.split("-").join("")
-            if(cli[1].toLowerCase().includes(search.toLowerCase())){result.push(cli)}
+            if(cli[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(search.toLowerCase())){result.push(cli)}
             else if(clean_cpf.includes(clean_search)){result.push(cli); console.log('cpf pushhhhh')}
         })
     
@@ -276,7 +274,7 @@ io.on('connection', socket => {
         let result = [serviceForm]
         services.forEach(c => {
             //busca se a substring está na string. Ignora capitalizacao
-            if(c[1].toLowerCase().includes(search.toLowerCase())){result.push(c)}
+            if(c[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(search.toLowerCase())){result.push(c)}
         })
         
 
@@ -304,7 +302,7 @@ io.on('connection', socket => {
             clean_cpf = clean_cpf.split("-").join("")
 
             //busca se a substring está na string. Ignora capitalizacao
-            if(c[1].toLowerCase().includes(search.toLowerCase())){result.push(c)}
+            if(c[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(search.toLowerCase())){result.push(c)}
             else if(clean_cpf.includes(clean_search))result.push(c)
         })
         
@@ -411,7 +409,7 @@ io.on('connection', socket => {
             console.log('pass.includes(dpass) ', pass.includes(dpass) )
             if(pass.includes(dpass)){
                 dao.update(who, data)//.catch(error => console.log('erroooo edit'))
-                io.to(socket.id).emit('feedback', ['Daaaaados atualizados com sucesso!', 1])
+                io.to(socket.id).emit('feedback', ['Dados atualizados com sucesso!', 1])
             }else{
                 io.to(socket.id).emit('feedback', ['Senha incorreta', 0])
             }
@@ -491,15 +489,15 @@ io.on('connection', socket => {
                 })
                 ret.push(l)
             })
-
-            console.log('ret ' + ret)
-
             ser = [ret[0][3]]
+            console.log('ser ' + ser)
+            
             data[5].forEach(ddd => ser.push(ddd))
             while(ser.length < 6)ser.push(null)
             console.log('ser ' + JSON.stringify(ser))
             data.splice(5, 1)
-            console.log('data pre update ' + JSON.stringify(data))
+            console.log('ser ' + ser)
+            //console.log('data pre update ' + JSON.stringify(data))
             dao.update('agendamentos', data)
             dao.update('tabela_array', ser)
             io.to(socket.id).emit('feedback', ['Dados atualizados com sucesso!', 1])
@@ -683,8 +681,4 @@ function addColab(col){
     dao.add('colaboradores', col)
     console.log( 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     console.log(col.slice(0, col))
-}
-
-function deleteClient(cli){
-
 }

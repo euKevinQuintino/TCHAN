@@ -192,23 +192,27 @@ function getInBetween(h1, h2, i){
 
 
 function updateList(id, n, checked){
+    console.log('update list -------------------------------')
+    console.log('slist ' + slist)
     console.log('id ' + id)
     console.log('checked '+ checked)
     let t = n.slice(0,5)
     let val = parseInt(n.slice(5, n.length))
     console.log('t ' + t)
     console.log('val ' + val)
-    
-    if(checked){
-        slist.push(id)
+        
+    if(checked && !slist.includes(parseInt(id))){
+        slist.push(parseInt(id))
         tempo += time2min(t)
         total  += val       
     }else{
-        if(slist.includes(id))slist.splice(slist.indexOf(id), 1)
+        console.log('slist ' + JSON.stringify(slist))
+        
+        if(slist.includes(parseInt(id)))slist.splice(slist.indexOf(parseInt(id)), 1)
         tempo -= time2min(t)
         total -= val    
     }
-
+    console.log('slist ' + slist)
     document.getElementById('tempo').innerHTML = "Duração estimada: " + tempo + "min."
     document.getElementById('total').innerHTML = "Valor estimado: R$"+total + "."
 }
