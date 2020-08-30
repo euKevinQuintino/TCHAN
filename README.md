@@ -1,6 +1,6 @@
 # TCHAN - ESIII
 
-### Installation:
+### Instalação:
 - `npm install`
 - `npm i --save-dev nodemon`
 
@@ -11,7 +11,7 @@ http://localhost:5000/html/index.html
 ### Refresh:
 `rs`
 
-### Authors:
+### Desenvolvedores:
 - Alberto Goto
 - Kennedy Nunes
 - Kevin Quintino
