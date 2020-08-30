@@ -1,8 +1,8 @@
 # TCHAN - ESIII
 
 ### Installation:
-`npm install`
-`npm i --save-dev nodemon`
+- `npm install`
+- `npm i --save-dev nodemon`
 
 ### Running:
 `npm run start`
@@ -12,7 +12,7 @@ http://localhost:5000/html/index.html
 `rs`
 
 ### Authors:
-Alberto Goto
-Kennedy Nunes
-Kevin Quintino
-Vinícius Bomfim
+- Alberto Goto
+- Kennedy Nunes
+- Kevin Quintino
+- Vinícius Bomfim
